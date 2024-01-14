@@ -1,5 +1,5 @@
 // wait for DOM to load
-$(document).ready(function() {
+$(document).ready(function () {
   const amenityId = [];
   const amenityCheckd = [];
   // declare a varible to store on where to listen
@@ -14,7 +14,7 @@ $(document).ready(function() {
     } else {
       const index = amenityId.indexOf($(event.target).parent().data('id'));
       amenityId.splice(index, 1);
-      amenityCheckd.splice(index, 1);  
+      amenityCheckd.splice(index, 1);
     }
     // update h4 with new checked
     $('.amenities h4').text(amenityCheckd.join(', '));

@@ -1,5 +1,5 @@
 // wait for DOM to load
-$(document).ready(function() {
+$(document).ready(function () {
   const amenityId = [];
   const amenityCheckd = [];
   // declare a varible to store on where to listen
@@ -23,11 +23,11 @@ $(document).ready(function() {
   $.ajax({
     url: 'http://localhost:5001/api/v1/status/',
     method: 'GET',
-    success: function(data) {
-      if (data.status == "OK") {
-        $('#api_status').addClass("available");
+    success: function (data) {
+      if (data.status == 'OK') {
+        $('#api_status').addClass('available');
       } else {
-        $('#api_status').removeClass("available");
+        $('#api_status').removeClass('available');
       }
     }
   });
