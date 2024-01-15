@@ -16,7 +16,7 @@ $(document).ready(function () {
       amenityId.splice(index, 1);
       amenityCheckd.splice(index, 1);
     }
-    // update h4 with new checked
+    // update h4 with new checkedad
     $('.amenities h4').text(amenityCheckd.join(', '));
   });
   // make a request using ajax in the background
@@ -57,5 +57,39 @@ $(document).ready(function () {
         $('.places').append(articles);
       });
     }
+  });
+  // attach an event listener
+  const btn = $('button[type="button"]');
+  btn.click(function () {
+	  // check that the amenity id list is not empty
+	  if (amenityId.length > 0) {
+		  $.ajax({
+			  url: 'http://localhost:5001/api/v1/places_search',
+			  method: 'POST',
+			  headers: {
+				  'Content-Type': 'application/json'
+			  },
+			  data: JSON.stringify({ amenities: amenityId }),
+			  success: function (data) {
+				  $('article').remove();
+				  $.each(data, function (i, currentPlace) {
+					  const articles = $('<article>');
+					  const titleBox = $('<div>').addClass('title_box');
+			                  const title = $('<h2>').text(currentPlace.name);
+				          const price = $('<div>').addClass('price_by_night').text('$' + currentPlace.price_by_night);
+				          const info = $('<div>').addClass('information');
+				          const guest = $('<div>').addClass('max_guest').text(currentPlace.max_guest + ' Guests');
+				          const rooms = $('<div>').addClass('number_rooms').text(currentPlace.number_rooms + ' Rooms');
+					  const bathrooms = $('<div>').addClass('number_bathrooms').text(currentPlace.number_bathrooms + ' Bathrooms');
+					  const user = $('<div>').addClass('user').html('<b>Owner</b>: ' + currentPlace.first_name + ' ' + currentPlace.last_name);
+				          const desc = $('<div>').addClass('description').html(currentPlace.description);
+				          titleBox.append(title, price);
+				          info.append(guest, rooms, bathrooms);
+				          articles.append(titleBox, info, user, desc);
+				          $('.places').append(articles);
+				  });
+			  }
+		  });
+	  }
   });
 });
